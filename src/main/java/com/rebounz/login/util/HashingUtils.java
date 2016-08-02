@@ -30,6 +30,14 @@ public final class HashingUtils {
 		return Base64.encodeBase64String(salt);
 	}
 
+	public static String generateHash(String password, String salt)
+			throws NoSuchAlgorithmException, InvalidKeySpecException {
+		KeySpec spec = new PBEKeySpec(password.toCharArray(), Base64.decodeBase64(salt), ITERATIONS, SIZE);
+		SecretKeyFactory skf = SecretKeyFactory.getInstance(SHA_1);
+		SecretKey key = skf.generateSecret(spec);
+		return Base64.encodeBase64String(key.getEncoded());
+	}
+	
 	public static boolean comparePasswordHashes(String password, String salt, String passwordHash) {
 		String generatedHash = "";
 		try {
@@ -40,14 +48,6 @@ public final class HashingUtils {
 		//System.out.println("Generated Hash: " + generatedHash);
 		//System.out.println("Original Hash: " + passwordHash);
 		return passwordHash.equals(generatedHash);
-	}
-
-	public static String generateHash(String password, String salt)
-			throws NoSuchAlgorithmException, InvalidKeySpecException {
-		KeySpec spec = new PBEKeySpec(password.toCharArray(), Base64.decodeBase64(salt), ITERATIONS, SIZE);
-		SecretKeyFactory skf = SecretKeyFactory.getInstance(SHA_1);
-		SecretKey key = skf.generateSecret(spec);
-		return Base64.encodeBase64String(key.getEncoded());
 	}
 
 	/*public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeySpecException {
