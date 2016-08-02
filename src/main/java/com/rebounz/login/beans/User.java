@@ -127,12 +127,8 @@ public class User implements Serializable {
 		if (id == null) {
 			if (other.id != null)
 				return false;
-		} else if (!id.equals(other.id)) {
+		} else if (!id.equals(other.id)) 
 			return false;
-		} else if (id.equals(other.id)) {
-			return true;
-		}
-			
 		if (lastname == null) {
 			if (other.lastname != null)
 				return false;
