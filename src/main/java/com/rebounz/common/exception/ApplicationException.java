@@ -16,9 +16,6 @@ public class ApplicationException extends Exception {
     /** message describing the error. */
     private String errorMsg;
 
-    /** link point to page where the error message is documented. */
-    private String link;
-
     /** extra information that might useful for developers. */
     private String developerMessage;
 
@@ -50,14 +47,6 @@ public class ApplicationException extends Exception {
 
 	public void setErrorMessage(String message) {
 		this.errorMsg = message;
-	}
-
-	public String getLink() {
-		return link;
-	}
-
-	public void setLink(String link) {
-		this.link = link;
 	}
 
 	public String getDeveloperMessage() {

@@ -9,5 +9,13 @@
 
 
 	<context:component-scan base-package="com.rebounz.*" />
+	
+	<bean id="userService" class="com.rebounz.login.service.impl.UserServiceImpl" >
+		
+	</bean>
+	
+	<bean id="userDao" class="com.rebounz.login.dao.impl.UserDaoImpl" >
+		
+	</bean>
 
 </beans>
