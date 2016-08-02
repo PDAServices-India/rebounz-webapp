@@ -13,9 +13,6 @@ public class ApplicationException extends Exception {
     /** application specific error code. */
     private Integer code;
 
-    /** message describing the error. */
-    private String errorMsg;
-
     /** extra information that might useful for developers. */
     private String developerMessage;
 
@@ -39,14 +36,6 @@ public class ApplicationException extends Exception {
 
 	public void setCode(Integer code) {
 		this.code = code;
-	}
-
-	public String getErrorMessage() {
-		return errorMsg;
-	}
-
-	public void setErrorMessage(String message) {
-		this.errorMsg = message;
 	}
 
 	public String getDeveloperMessage() {
@@ -87,6 +76,12 @@ public class ApplicationException extends Exception {
 	
 	public ApplicationException(Throwable ex) {
 		super(ex);
+	}
+	
+	public ApplicationException(String msg, String status, Integer code) {
+		super(msg);
+		this.status = status;
+		this.code = code;
 	}
 
 }
