@@ -25,7 +25,7 @@ public final class HashingUtils {
 
 	public static String generateRandomSalt() {
 		SecureRandom random = new SecureRandom();
-		byte[] salt = new byte[32];
+		byte[] salt = new byte[16];
 		random.nextBytes(salt);
 		return Base64.encodeBase64String(salt);
 	}
@@ -45,13 +45,14 @@ public final class HashingUtils {
 		} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
 			return false;
 		}
-		//System.out.println("Generated Hash: " + generatedHash);
-		//System.out.println("Original Hash: " + passwordHash);
+		/*System.out.println("Generated Hash: " + generatedHash);
+		System.out.println("Original Hash: " + passwordHash);*/
 		return passwordHash.equals(generatedHash);
 	}
 
 	/*public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeySpecException {
 		String salt = generateRandomSalt();
+		System.out.println("Salt : " + salt);
 		String password = "Password123#";
 		String passwordHash = generateHash(password, salt);
 		System.out.println("Test 1 : " + comparePasswordHashes(password, salt, passwordHash));

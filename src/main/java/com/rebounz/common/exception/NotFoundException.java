@@ -11,8 +11,6 @@ public class NotFoundException extends Exception {
 	
 	private Integer code;
 	
-	private String status;
-	
 	public String getEntityName() {
 		return entityName;
 	}
@@ -29,14 +27,6 @@ public class NotFoundException extends Exception {
 		this.code = code;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
 	public NotFoundException() {
 		super();
 	}
@@ -49,10 +39,9 @@ public class NotFoundException extends Exception {
 		super(msg, ex);
 	}
 	
-	public NotFoundException(String msg, String entity, String status, Integer code) {
+	public NotFoundException(String msg, String entity, Integer code) {
 		super(msg);
 		this.entityName = entity;
-		this.status = status;
 		this.code = code;
 	}
 	

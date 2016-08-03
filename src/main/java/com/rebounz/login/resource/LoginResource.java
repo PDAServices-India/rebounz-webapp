@@ -9,6 +9,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -42,15 +43,20 @@ public class LoginResource {
 		User user = new User();
 		user.setUsername(username);
 		user.setPassword(password);
-		// userService.authenticateUser(user);
-		return Response.ok().entity("SUCCESS").build();
+		boolean isValidLogin= userService.authenticateUser(user);
+		if(!isValidLogin) {
+			return Response.status(Status.UNAUTHORIZED).entity("Invalid username or password.").build();
+		}
+		User validUser = userService.findUserByUsername(username);
+		return Response.ok().entity(validUser).build();
 	}
 
 	@GET
 	@Path("/checkUsernameExists/{username}")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response checkUsernameExists(@PathParam("username") String username) throws NotFoundException {
-
-		return null;
+		User user = userService.findUserByUsername(username);
+		return Response.ok().entity(user).build();
 	}
 
 }

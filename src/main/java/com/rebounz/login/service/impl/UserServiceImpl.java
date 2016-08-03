@@ -8,7 +8,7 @@ import javax.ws.rs.core.Response;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.util.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.rebounz.common.exception.ApplicationException;
 import com.rebounz.common.exception.NotFoundException;
@@ -20,17 +20,20 @@ public class UserServiceImpl implements UserService {
 
 	private static final Log LOGGER = LogFactory.getLog(UserServiceImpl.class);
 	
+	@Autowired
 	private UserDao userDao;
 
 	@Override
-	public boolean authenticateUser(User user) throws ApplicationException, NotFoundException {
+	public boolean authenticateUser(User user) throws ApplicationException {
 		LOGGER.info("validating user credentials.");
-		if (!StringUtils.hasText(user.getUsername()) || !StringUtils.hasText(user.getPassword())) {
+		// fetch the user record from the database
+		User userObj = null;
+		try {
+			userObj = findUserByUsername(user.getUsername());
+		} catch (NotFoundException e) {
 			throw new ApplicationException("Invalid username or password.", "FAILURE",
 					Response.Status.BAD_REQUEST.getStatusCode());
 		}
-		// fetch the user record from the database
-		User userObj = findUserByUsername(user.getUsername());
 		return comparePasswordHashes(user.getPassword(), userObj.getSalt(), userObj.getPasswordHash());
 	}
 
@@ -60,8 +63,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User findUserByUsername(String username) throws NotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		LOGGER.info("retrieving user details for : " + username);
+		return userDao.findUserByUsername(username);
 	}
 
 	public UserDao getUserDao() {

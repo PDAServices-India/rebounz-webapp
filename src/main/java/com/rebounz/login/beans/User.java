@@ -151,5 +151,12 @@ public class User implements Serializable {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", salt=" + salt
+				+ ", passwordHash=" + passwordHash + ", firstname=" + firstname + ", lastname=" + lastname + ", status="
+				+ status + "]";
+	}
 	
 }

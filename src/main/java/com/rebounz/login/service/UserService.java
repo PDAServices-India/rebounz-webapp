@@ -8,7 +8,7 @@ import com.rebounz.login.beans.User;
 
 public interface UserService {
 	
-	public boolean authenticateUser(User user) throws ApplicationException, NotFoundException;
+	public boolean authenticateUser(User user) throws ApplicationException;
 	
 	public User findUserById(Integer id) throws NotFoundException;
 	
