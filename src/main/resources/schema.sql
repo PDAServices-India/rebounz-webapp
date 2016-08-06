@@ -6,8 +6,10 @@ CREATE TABLE user (
   FIRSTNAME varchar(30) NOT NULL,
   LASTNAME varchar(30) NOT NULL,
   STATUS varchar(8),
+  EMAIL varchar(30) NOT NULL,
   PRIMARY KEY (USER_ID),
-  UNIQUE (USERNAME)
+  UNIQUE (USERNAME),
+  UNIQUE (EMAIL)
 );
 
 GRANT select ON user TO public;
