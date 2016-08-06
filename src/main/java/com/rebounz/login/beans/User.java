@@ -32,6 +32,10 @@ public class User implements Serializable {
 	private String lastname;
 	
 	private String status;
+	
+	@NotNull(message="{email.field.mandatory}")
+	@Pattern(regexp="([\\w-.]+)@((?:[\\w]+.)+)([a-zA-Z]{2,4})", message="{email.field.invalid}")
+	private String email;
 
 	public String getId() {
 		return id;
@@ -156,7 +160,13 @@ public class User implements Serializable {
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", salt=" + salt
 				+ ", passwordHash=" + passwordHash + ", firstname=" + firstname + ", lastname=" + lastname + ", status="
-				+ status + "]";
+				+ status + ",email=" + email +"]";
+	}
+	
+	public static void main(String[] args) {
+		String regex = "([\\w-.]+)@((?:[\\w]+.)+)([a-zA-Z]{2,4})";
+		System.out.println(java.util.regex.Pattern.matches(regex, "123@gmail.com.com.com.com.1"));
+
 	}
 	
 }
