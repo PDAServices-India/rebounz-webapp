@@ -20,6 +20,9 @@ public class UserRowMapper implements RowMapper < User > {
 		user.setLastname(rs.getString("lastname"));
 		user.setStatus(rs.getString("status"));
 		user.setEmail(rs.getString("email"));
+		user.setCountry(rs.getString("country"));
+		user.setState(rs.getString("state"));
+		user.setZipCode(rs.getString("zipcode"));
 		return user;
 	}
 

@@ -23,6 +23,14 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDao userDao;
 
+	public UserDao getUserDao() {
+		return userDao;
+	}
+
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
+	}
+	
 	@Override
 	public boolean authenticateUser(User user) throws ApplicationException {
 		LOGGER.info("validating user credentials.");
@@ -32,9 +40,9 @@ public class UserServiceImpl implements UserService {
 			userObj = findUserByUsername(user.getUsername());
 		} catch (NotFoundException e) {
 			throw new ApplicationException("Invalid username or password.", "FAILURE",
-					Response.Status.BAD_REQUEST.getStatusCode());
+					Response.Status.UNAUTHORIZED.getStatusCode());
 		}
-		return comparePasswordHashes(user.getPassword(), userObj.getSalt(), userObj.getPasswordHash());
+		return user.getPassword().equals(userObj.getPassword());
 	}
 
 	@Override
@@ -66,15 +74,11 @@ public class UserServiceImpl implements UserService {
 		LOGGER.info("retrieving user details for : " + username);
 		return userDao.findUserByUsername(username);
 	}
-
-	public UserDao getUserDao() {
-		return userDao;
-	}
-
-	public void setUserDao(UserDao userDao) {
-		this.userDao = userDao;
-	}
 	
-	
+	@Override
+	public boolean userRegistration(User userDetails) throws ApplicationException {
+		LOGGER.info("Inside User Registration service");
+		return userDao.userRegistration(userDetails);
+	}
 
 }

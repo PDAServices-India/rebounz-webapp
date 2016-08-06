@@ -58,5 +58,22 @@ public class LoginResource {
 		User user = userService.findUserByUsername(username);
 		return Response.ok().entity(user).build();
 	}
+	
+	@POST
+	@Path("/userRegistration")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response userRegistration(User userDetails) throws ApplicationException {
+		userService.userRegistration(userDetails);
+		return Response.ok().build();
+	}
+	
+	/*@GET
+	@Path("/forgotPassword/{username}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response forgotPassword(@PathParam("username") String username) throws NotFoundException {
+		User user = userService.findUserByUsername(username);
+		return Response.ok().entity(user).build();
+	}*/	
 
 }

@@ -21,6 +21,8 @@ public class User implements Serializable {
 	@NotNull(message="{password.field.mandatory}")
 	private String password;
 	
+	private String passwordNew;
+	
 	private String salt;
 	
 	private String passwordHash;
@@ -36,6 +38,12 @@ public class User implements Serializable {
 	@NotNull(message="{email.field.mandatory}")
 	@Pattern(regexp="([\\w-.]+)@((?:[\\w]+.)+)([a-zA-Z]{2,4})", message="{email.field.invalid}")
 	private String email;
+	
+	private String country;
+	
+	private String state;
+	
+	private String zipCode; 
 
 	public String getId() {
 		return id;
@@ -76,6 +84,14 @@ public class User implements Serializable {
 	public void setPasswordHash(String passwordHash) {
 		this.passwordHash = passwordHash;
 	}
+	
+	public String getPasswordNew() {
+		return passwordNew;
+	}
+
+	public void setPasswordNew(String passwordNew) {
+		this.passwordNew = passwordNew;
+	}
 
 	public String getFirstname() {
 		return firstname;
@@ -107,6 +123,30 @@ public class User implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
 	}
 
 	@Override
@@ -171,11 +211,5 @@ public class User implements Serializable {
 				+ ", passwordHash=" + passwordHash + ", firstname=" + firstname + ", lastname=" + lastname + ", status="
 				+ status + ",email=" + email +"]";
 	}
-	
-	public static void main(String[] args) {
-		String regex = "([\\w-.]+)@((?:[\\w]+.)+)([a-zA-Z]{2,4})";
-		System.out.println(java.util.regex.Pattern.matches(regex, "123@gmail.com.com.com.com.1"));
-
-	}
-	
+		
 }

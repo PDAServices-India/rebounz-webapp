@@ -6,7 +6,11 @@ CREATE TABLE user (
   FIRSTNAME varchar(30) NOT NULL,
   LASTNAME varchar(30) NOT NULL,
   STATUS varchar(8),
-  EMAIL varchar(30) NOT NULL,
+  PASSWORD varchar(25) NOT NULL,
+  EMAIL varchar(30),
+  COUNTRY varchar(30),
+  STATE varchar(30),
+  ZIPCODE varchar(10),
   PRIMARY KEY (USER_ID),
   UNIQUE (USERNAME),
   UNIQUE (EMAIL)
