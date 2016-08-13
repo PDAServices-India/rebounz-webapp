@@ -1,7 +1,5 @@
 package com.rebounz.login.service.impl;
 
-import static com.rebounz.login.util.HashingUtils.comparePasswordHashes;
-
 import java.util.List;
 
 import javax.ws.rs.core.Response;
@@ -12,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.rebounz.common.exception.ApplicationException;
 import com.rebounz.common.exception.NotFoundException;
+import com.rebounz.login.beans.Account;
 import com.rebounz.login.beans.User;
 import com.rebounz.login.dao.UserDao;
 import com.rebounz.login.service.UserService;
@@ -34,7 +33,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean authenticateUser(User user) throws ApplicationException {
 		LOGGER.info("validating user credentials.");
-		// fetch the user record from the database
 		User userObj = null;
 		try {
 			userObj = findUserByUsername(user.getUsername());

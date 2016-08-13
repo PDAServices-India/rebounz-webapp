@@ -21,5 +21,5 @@ public interface UserService {
 	public List<User> searchUser(User user);
 	
 	public boolean userRegistration(User userDetails) throws ApplicationException;
-
+	
 }

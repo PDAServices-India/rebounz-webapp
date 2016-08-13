@@ -1,9 +1,8 @@
 package com.rebounz.login.dao.impl;
 
-import static com.rebounz.login.dao.UserDaoQuery.GET_USER_BY_USERNAME;
+import static com.rebounz.login.dao.CommonDaoQuery.GET_USER_BY_USERNAME;
 
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -15,9 +14,10 @@ import com.rebounz.common.exception.ApplicationException;
 import com.rebounz.common.exception.NotFoundException;
 import com.rebounz.login.beans.User;
 import com.rebounz.login.dao.UserDao;
-import com.rebounz.login.dao.UserDaoQuery;
+import com.rebounz.login.dao.CommonDaoQuery;
 import com.rebounz.login.dao.UserRowMapper;
 import com.rebounz.login.dao.UserStmtCreator;
+
 
 public class UserDaoImpl implements UserDao {
 
@@ -61,18 +61,20 @@ public class UserDaoImpl implements UserDao {
 		LOGGER.info("Returning user object : " + user);
 		return user;
 	}
-
+	
 	@Override
-	public boolean userRegistration(User userDetails) throws ApplicationException {
-		boolean updateRes = Boolean.FALSE; 
+	public boolean userRegistration(User userDetails)
+			throws ApplicationException {
+		boolean updateRes = Boolean.FALSE;
 		try {
 			final PreparedStatementCreator psCm = getUserStmtCreator()
-                    .userRegistration(UserDaoQuery.INSERT_USER, userDetails);
-            getJdbcTemplate().update(psCm);
-            updateRes = Boolean.TRUE;
+					.userRegistration(CommonDaoQuery.INSERT_USER, userDetails);
+			getJdbcTemplate().update(psCm);
+			updateRes = Boolean.TRUE;
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage(), e);
-			throw new ApplicationException("User registration failed.", "FAILURE", 
+			throw new ApplicationException("User registration failed.",
+					"FAILURE",
 					Response.Status.INTERNAL_SERVER_ERROR.getStatusCode());
 		}
 		return updateRes;

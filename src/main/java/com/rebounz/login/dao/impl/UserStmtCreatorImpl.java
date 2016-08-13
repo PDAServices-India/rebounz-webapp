@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.jdbc.core.PreparedStatementCreator;
-
 import com.rebounz.login.beans.User;
 import com.rebounz.login.dao.UserStmtCreator;
 import com.rebounz.login.util.Constants;
@@ -79,4 +78,5 @@ public class UserStmtCreatorImpl implements UserStmtCreator {
         return psc;
 	}
 	
+
 }

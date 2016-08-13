@@ -20,6 +20,8 @@ import org.springframework.stereotype.Component;
 import com.rebounz.common.exception.ApplicationException;
 import com.rebounz.common.exception.NotFoundException;
 import com.rebounz.login.beans.User;
+import com.rebounz.login.beans.Account;
+import com.rebounz.login.service.AccountService;
 import com.rebounz.login.service.UserService;
 
 @Component
@@ -30,6 +32,9 @@ public class LoginResource {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private AccountService accountService;
 
 	@POST
 	@Path("/validateLogin")
@@ -43,9 +48,10 @@ public class LoginResource {
 		User user = new User();
 		user.setUsername(username);
 		user.setPassword(password);
-		boolean isValidLogin= userService.authenticateUser(user);
-		if(!isValidLogin) {
-			return Response.status(Status.UNAUTHORIZED).entity("Invalid username or password.").build();
+		boolean isValidLogin = userService.authenticateUser(user);
+		if (!isValidLogin) {
+			return Response.status(Status.UNAUTHORIZED)
+					.entity("Invalid username or password.").build();
 		}
 		User validUser = userService.findUserByUsername(username);
 		return Response.ok().entity(validUser).build();
@@ -54,26 +60,51 @@ public class LoginResource {
 	@GET
 	@Path("/checkUsernameExists/{username}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response checkUsernameExists(@PathParam("username") String username) throws NotFoundException {
+	public Response checkUsernameExists(@PathParam("username") String username)
+			throws NotFoundException {
 		User user = userService.findUserByUsername(username);
 		return Response.ok().entity(user).build();
 	}
-	
+
 	@POST
 	@Path("/userRegistration")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response userRegistration(User userDetails) throws ApplicationException {
+	public Response userRegistration(User userDetails)
+			throws ApplicationException {
 		userService.userRegistration(userDetails);
 		return Response.ok().build();
 	}
 	
-	/*@GET
-	@Path("/forgotPassword/{username}")
+	@POST
+	@Path("/accountDetails")
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response forgotPassword(@PathParam("username") String username) throws NotFoundException {
-		User user = userService.findUserByUsername(username);
-		return Response.ok().entity(user).build();
-	}*/	
+	public Response accountDetails(Account accDetails)
+			throws ApplicationException {
+		accountService.updateAccDetails(accDetails);
+		return Response.ok().build();
+	}
+	
+	
+	@GET
+	@Path("/getaccountDetails/{username}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAccountDetails(@PathParam("username") String username)
+			throws NotFoundException {
+		Account accDet = accountService.getAccountDetails(username);
+		return Response.ok().entity(accDet).build();
+	}
+
+	/*
+	 * @GET
+	 * 
+	 * @Path("/forgotPassword/{username}")
+	 * 
+	 * @Produces(MediaType.APPLICATION_JSON) public Response
+	 * forgotPassword(@PathParam("username") String username) throws
+	 * NotFoundException { User user = userService.findUserByUsername(username);
+	 * return Response.ok().entity(user).build(); }
+	 */
 
 }

@@ -3,10 +3,7 @@ package com.rebounz.login.dao;
 import java.sql.SQLException;
 
 import org.springframework.jdbc.core.PreparedStatementCreator;
-
-import com.rebounz.login.beans.User;
-
-
+import com.rebounz.login.beans.User;;
 /**
  * The Interface LoginStmtCreator.
  */
@@ -20,5 +17,6 @@ public interface UserStmtCreator {
 
     PreparedStatementCreator updatePwdStatus(final String sql, 
 			final User userDetails) throws SQLException;
+    
    
 }

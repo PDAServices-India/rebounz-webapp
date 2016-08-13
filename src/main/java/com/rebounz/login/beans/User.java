@@ -15,6 +15,7 @@ public class User implements Serializable {
 	private String id;
 	
 	@NotNull(message="{username.field.mandatory}")
+	
 	@Pattern(regexp="^[a-zA-Z0-9_-]{3,15}$", message="{username.field.invalid}")
 	private String username;
 	
